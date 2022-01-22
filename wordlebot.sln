@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleBot.Console", "src\Wo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleBot.Core", "src\WordleBot.Core\WordleBot.Core.csproj", "{7F37CC85-D01B-47E3-B8F1-53338F6618C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F549EBF1-3D1C-4B3A-8113-9A13AC738C87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleBot.Core.Tests", "test\WordleBot.Core.Tests\WordleBot.Core.Tests.csproj", "{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +30,14 @@ Global
 		{7F37CC85-D01B-47E3-B8F1-53338F6618C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F37CC85-D01B-47E3-B8F1-53338F6618C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F37CC85-D01B-47E3-B8F1-53338F6618C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B9442E52-DBB3-4A99-A622-45104609494F} = {C41FF7C3-ECDA-493F-804D-F44A1C0B6FD9}
 		{7F37CC85-D01B-47E3-B8F1-53338F6618C4} = {C41FF7C3-ECDA-493F-804D-F44A1C0B6FD9}
+		{036DFE4A-ADA1-4C9D-B78E-4CB911D9DFA7} = {F549EBF1-3D1C-4B3A-8113-9A13AC738C87}
 	EndGlobalSection
 EndGlobal
