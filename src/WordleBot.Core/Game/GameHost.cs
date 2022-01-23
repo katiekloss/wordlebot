@@ -9,12 +9,14 @@ namespace WordleBot.Core.Game
 
         public GameHost(string answer)
         {
-            Answer = answer;
+            Answer = answer.ToLowerInvariant();
         }
 
         public GuessResult Guess(string attempt)
         {
             if (attempt.Length != Answer.Length) throw new ArgumentException($"Guess must be {Answer.Length} letters");
+
+            attempt = attempt.ToLowerInvariant();
 
             GuessResult response = new(Answer)
             {
