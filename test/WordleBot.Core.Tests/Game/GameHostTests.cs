@@ -65,4 +65,11 @@ public class GameHostTests
         var game = new GameHost("blah");
         game.Invoking(g => g.Guess("a")).Should().Throw<ArgumentException>().WithMessage("*4 letters");
     }
+
+    [Fact]
+    public void TellsMeThatIWon()
+    {
+        var game = new GameHost("blah");
+        game.Guess("blah").Won.Should().BeTrue();
+    }
 }

@@ -5,7 +5,7 @@ namespace WordleBot.Core
     /// </summary>
     public record GuessResult
     {
-        public bool Won { get; init; }
+        public bool Won { get; set; }
         public string Guess { get; init; } = "";
         public SlotStatus[] Slots { get; init; }
 

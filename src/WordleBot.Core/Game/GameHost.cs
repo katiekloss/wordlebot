@@ -5,7 +5,9 @@ namespace WordleBot.Core.Game
     /// </summary>
     public class GameHost
     {
-        public string Answer { get; init; }
+        private string Answer { get; init; }
+
+        public int Length => Answer.Length;
 
         public GameHost(string answer)
         {
@@ -69,6 +71,8 @@ namespace WordleBot.Core.Game
                     response.Slots[i] = SlotStatus.Out;
                 }
             }
+
+            response.Won = response.Slots.All(s => s == SlotStatus.Correct);
 
             return response;
         }
