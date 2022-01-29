@@ -1,6 +1,25 @@
-﻿using WordleBot.Core;
-using WordleBot.Core.Game;
+﻿using System.IO.Abstractions;
+using Autofac;
+using Microsoft.Extensions.Configuration;
+using WordleBot.Core.Utilities;
 
+ConfigurationBuilder configBuilder = new();
+configBuilder.AddJsonFile("appsettings.json");
+IConfiguration config = configBuilder.Build();
+
+ContainerBuilder builder = new();
+builder.RegisterAssemblyTypes(typeof(IFileSystem).Assembly).AsImplementedInterfaces().SingleInstance();
+builder.RegisterType<HttpClient>().AsSelf().InstancePerDependency();
+builder.RegisterInstance(config);
+builder.RegisterType<WordList>()
+    .AsSelf()
+    .OnActivated(async e => await e.Instance.Load())
+    .SingleInstance();
+
+using IContainer root = builder.Build();
+WordList list = root.Resolve<WordList>();
+
+/*
 Console.Write("Enter a word: ");
 string? answer = Console.ReadLine();
 if (answer is null) return;
@@ -43,3 +62,4 @@ while (true)
 
     if (result.Won) break;
 }
+*/

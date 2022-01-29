@@ -2,6 +2,7 @@ using WordleBot.Core.Game;
 using Xunit;
 using System.Linq;
 using FluentAssertions;
+using System;
 
 namespace WordleBot.Core.Tests.Game;
 
@@ -56,5 +57,12 @@ public class GameHostTests
             SlotStatus.Out,
             SlotStatus.In
         });
+    }
+
+    [Fact]
+    public void ThrowsOnInvalidGuess()
+    {
+        var game = new GameHost("blah");
+        game.Invoking(g => g.Guess("a")).Should().Throw<ArgumentException>().WithMessage("*4 letters");
     }
 }
