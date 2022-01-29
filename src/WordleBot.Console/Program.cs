@@ -1,6 +1,8 @@
 ﻿using System.IO.Abstractions;
 using Autofac;
 using Microsoft.Extensions.Configuration;
+using WordleBot.Core.Game;
+using WordleBot.Core.Intelligence;
 using WordleBot.Core.Utilities;
 
 ConfigurationBuilder configBuilder = new();
@@ -8,16 +10,43 @@ configBuilder.AddJsonFile("appsettings.json");
 IConfiguration config = configBuilder.Build();
 
 ContainerBuilder builder = new();
-builder.RegisterAssemblyTypes(typeof(IFileSystem).Assembly).AsImplementedInterfaces().SingleInstance();
-builder.RegisterType<HttpClient>().AsSelf().InstancePerDependency();
-builder.RegisterInstance(config);
-builder.RegisterType<WordList>()
-    .AsSelf()
-    .OnActivated(async e => await e.Instance.Load())
+builder.RegisterAssemblyTypes(typeof(IFileSystem).Assembly)
+    .AsImplementedInterfaces()
     .SingleInstance();
 
+builder.RegisterType<HttpClient>()
+    .AsSelf()
+    .InstancePerDependency();
+
+builder.RegisterInstance(config);
+
+builder.RegisterType<WordList>()
+    .AsSelf()
+    .OnActivating(async e => await e.Instance.Load())
+    .InstancePerDependency();
+
+builder.RegisterType<SolverEngine>()
+    .AsSelf()
+    .InstancePerDependency();
+
+var game = new GameHost("could");
+builder.RegisterInstance(game)
+    .AsSelf();
+
+builder.Register(c =>
+{
+    var wordList = c.Resolve<WordList>();
+    return new GameHost(wordList.Current[new Random().Next(0, wordList.Current.Count)]);
+}).AsSelf();
+
 using IContainer root = builder.Build();
-WordList list = root.Resolve<WordList>();
+SolverEngine engine = root.Resolve<SolverEngine>();
+(string? answer, int guesses) = engine.Solve();
+
+if (answer is not null)
+    Console.WriteLine($"Won with {answer} in {guesses} guess{(guesses == 1 ? "" : "es")}");
+else
+    Console.WriteLine("I lost");
 
 /*
 Console.Write("Enter a word: ");
